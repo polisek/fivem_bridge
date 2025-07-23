@@ -1,6 +1,9 @@
 # 🌉 BRIDGE System by PLS_SCRIPTS
 
 Complete bridge system for unifying different frameworks, inventory systems, targeting and ped management in FiveM.
+This BRIDGE using ALL Scripts from me.
+U wanna use in your own script?
+Move folder into your script
 
 ## 📋 Table of Contents
 
