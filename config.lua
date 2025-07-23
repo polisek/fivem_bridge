@@ -36,6 +36,23 @@ BRIDGE.PED_RENDER_DISTANCE = 70.0 -- Distance in meters for ped spawning/despawn
 
 BRIDGE.Debug = false -- true / false - Enable/disable debug prints
 
+BRIDGE.Language = "en" -- Language code: en, cs, de, fr
+
+--[[ 
+  _                     _      
+ | |                   | |     
+ | |     ___   ___ __ _| | ___ 
+ | |    / _ \ / __/ _` | |/ _ \
+ | |___| (_) | (_| (_| | |  __/
+ |______\___/ \___\__,_|_|\___|
+                               
+]]--
+
+-- Locale example usage:
+-- _L("peds", "static_ped_created", pedId)  -- Get localized string with parameter
+-- BRIDGE.Locale.SetLanguage("cs")          -- Change language to Czech
+-- BRIDGE.Locale.GetAvailableLanguages()    -- Get list of available languages
+
 --[[ 
   _________                                        .__    .___      
  /   _____/ ______________  __ ___________    _____|__| __| _/____  

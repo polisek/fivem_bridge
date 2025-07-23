@@ -1,9 +1,6 @@
 # 🌉 BRIDGE System by PLS_SCRIPTS
 
 Complete bridge system for unifying different frameworks, inventory systems, targeting and ped management in FiveM.
-This BRIDGE using ALL Scripts from me.
-U wanna use in your own script?
-Move folder into your script
 
 ## 📋 Table of Contents
 
@@ -12,6 +9,7 @@ Move folder into your script
 - [Inventory Bridge](#inventory-bridge)
 - [Target Bridge](#target-bridge)
 - [Peds System](#peds-system)
+- [Locale System](#locale-system)
 - [Functions](#functions)
 - [Usage Examples](#usage-examples)
 
@@ -29,6 +27,7 @@ BRIDGE.Target = "ox_target" -- ox_target / qb_target
 BRIDGE.UsePeds = true -- Enable/disable static peds system
 BRIDGE.PED_RENDER_DISTANCE = 70.0 -- Distance for ped spawn/despawn (meters)
 BRIDGE.Debug = false -- Enable/disable debug prints
+BRIDGE.Language = "en" -- Language code: en, cs, de, fr
 ```
 
 ---
@@ -239,12 +238,119 @@ clearAllStaticPeds()
 
 ---
 
+## 🌍 Locale System
+
+Advanced localization system supporting multiple languages with automatic fallback and dynamic language switching.
+
+### Supported Languages:
+- **English** (en) - Default
+- **Czech** (cs)
+- **German** (de)
+- **French** (fr)
+
+### Functions:
+
+#### Get localized string
+```lua
+-- Basic usage
+local message = _L("peds", "static_ped_created", pedId)
+
+-- Or using the full function
+local message = BRIDGE.Locale.Get("peds", "static_ped_created", pedId)
+```
+
+#### Change language
+```lua
+-- Set language to Czech
+BRIDGE.Locale.SetLanguage("cs")
+
+-- Set language to German
+BRIDGE.Locale.SetLanguage("de")
+```
+
+#### Get available languages
+```lua
+local languages = BRIDGE.Locale.GetAvailableLanguages()
+-- Returns: {"en", "cs", "de", "fr"}
+```
+
+#### Add custom strings
+```lua
+-- Add new strings to existing category
+BRIDGE.Locale.AddStrings("en", "custom", {
+    my_message = "Hello %s!",
+    another_message = "Custom message"
+})
+
+-- Use the new strings
+local greeting = _L("custom", "my_message", "World")
+```
+
+### Categories:
+- **peds** - Ped system messages
+- **framework** - Framework related messages
+- **inventory** - Inventory system messages  
+- **target** - Target system messages
+- **general** - General purpose messages
+
+### Features:
+- ✅ **Automatic fallback** to English if translation missing
+- ✅ **String formatting** with parameters (`%s`, `%d`, etc.)
+- ✅ **Runtime language switching**
+- ✅ **Auto-detection** from server locale
+- ✅ **Custom string addition** for extensions
+- ✅ **Export functions** for other scripts
+
+### Usage Examples:
+
+#### Basic localization
+```lua
+-- Set language in config
+BRIDGE.Language = "cs"
+
+-- All debug messages will now be in Czech
+createStaticPed("dealer", {
+    model = "a_m_y_business_01",
+    coords = vector3(0, 0, 0)
+})
+```
+
+#### Dynamic language switching
+```lua
+-- Change language at runtime
+RegisterCommand('lang', function(source, args)
+    if args[1] then
+        BRIDGE.Locale.SetLanguage(args[1])
+        print("Language changed to: " .. args[1])
+    end
+end)
+```
+
+#### Custom messages
+```lua
+-- Add your own localized messages
+BRIDGE.Locale.AddStrings("en", "mymod", {
+    welcome = "Welcome to %s server!",
+    goodbye = "See you later!"
+})
+
+BRIDGE.Locale.AddStrings("cs", "mymod", {
+    welcome = "Vítejte na serveru %s!",
+    goodbye = "Na shledanou!"
+})
+
+-- Use them in your code
+local message = _L("mymod", "welcome", "MyServer")
+```
+
+---
+
 ## 🚀 Usage Examples
 
 ### Basic setup
 ```lua
 -- In client.lua
-
+local function setupMyScript()
     -- Wait for player to load
     RegisterNetEvent(GetCurrentResourceName()..':playerLoaded')
     AddEventHandler(GetCurrentResourceName()..':playerLoaded', function()
@@ -269,7 +375,9 @@ clearAllStaticPeds()
             end
         })
     end)
+end
 
+setupMyScript()
 ```
 
 ### Advanced usage
@@ -368,6 +476,7 @@ BRIDGE.Target = "ox_target"
 - **v1.0.0** - Basic framework, inventory and target bridge
 - **v1.1.0** - Added advanced peds system with optimization
 - **v1.2.0** - Configurable debug prints and render distance
+- **v1.3.0** - Multi-language locale system with 4 languages (EN, CS, DE, FR)
 
 ---
 

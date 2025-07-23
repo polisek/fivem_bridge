@@ -79,17 +79,17 @@ end)
 --- @return boolean success Zda byl ped úspěšně vytvořen
 function createStaticPed(pedId, data)
     if not pedId or not data then
-        if BRIDGE.Debug then print("^1[PLS_SECRET_ITEMS] createStaticPed: Chybí pedId nebo data^0") end
+        if BRIDGE.Debug then print(_L("peds", "missing_ped_id_or_data")) end
         return false
     end
     
     if not data.model then
-        if BRIDGE.Debug then print("^1[PLS_SECRET_ITEMS] createStaticPed: Chybí model peda^0") end
+        if BRIDGE.Debug then print(_L("peds", "missing_ped_model")) end
         return false
     end
     
     if not data.coords then
-        if BRIDGE.Debug then print("^1[PLS_SECRET_ITEMS] createStaticPed: Chybí souřadnice peda^0") end
+        if BRIDGE.Debug then print(_L("peds", "missing_ped_coords")) end
         return false
     end
     
@@ -112,7 +112,7 @@ function createStaticPed(pedId, data)
         customData = data.customData
     }
     
-    if BRIDGE.Debug then print("^2[PLS_SECRET_ITEMS] Vytvořen statický ped: " .. pedId .. "^0") end
+    if BRIDGE.Debug then print(_L("peds", "static_ped_created", pedId)) end
     return true
 end
 
@@ -121,12 +121,12 @@ end
 --- @return boolean success Zda byl ped úspěšně smazán
 function deleteStaticPed(pedId)
     if not pedId then
-        if BRIDGE.Debug then print("^1[PLS_SECRET_ITEMS] deleteStaticPed: Chybí pedId^0") end
+        if BRIDGE.Debug then print(_L("peds", "missing_ped_id")) end
         return false
     end
     
     if not staticPeds[pedId] then
-        if BRIDGE.Debug then print("^1[PLS_SECRET_ITEMS] deleteStaticPed: Ped s ID '" .. pedId .. "' neexistuje^0") end
+        if BRIDGE.Debug then print(_L("peds", "ped_not_exists", pedId)) end
         return false
     end
     
@@ -147,7 +147,7 @@ function deleteStaticPed(pedId)
     -- Smazání z registru
     staticPeds[pedId] = nil
     
-    if BRIDGE.Debug then print("^2[PLS_SECRET_ITEMS] Smazán statický ped: " .. pedId .. "^0") end
+    if BRIDGE.Debug then print(_L("peds", "static_ped_deleted", pedId)) end
     return true
 end
 
@@ -182,9 +182,9 @@ end
 function setRenderDistance(distance)
     if type(distance) == "number" and distance > 0 then
         BRIDGE.PED_RENDER_DISTANCE = distance
-        if BRIDGE.Debug then print("^2[PLS_SECRET_ITEMS] Nastavena render vzdálenost: " .. distance .. "m^0") end
+        if BRIDGE.Debug then print(_L("peds", "render_distance_set", distance)) end
     else
-        if BRIDGE.Debug then print("^1[PLS_SECRET_ITEMS] Neplatná render vzdálenost^0") end
+        if BRIDGE.Debug then print(_L("peds", "invalid_render_distance")) end
     end
 end
 
@@ -204,7 +204,7 @@ function clearAllStaticPeds()
     staticPeds = {}
     spawnedPeds = {}
     
-    if BRIDGE.Debug then print("^2[PLS_SECRET_ITEMS] Všichni statičtí pedové byli smazáni^0") end
+    if BRIDGE.Debug then print(_L("peds", "all_peds_deleted")) end
 end
 
 -- Export funkcí pro použití v ostatních skriptech
