@@ -241,7 +241,7 @@ clearAllStaticPeds()
 ### Basic setup
 ```lua
 -- In client.lua
-local function setupMyScript()
+
     -- Wait for player to load
     RegisterNetEvent(GetCurrentResourceName()..':playerLoaded')
     AddEventHandler(GetCurrentResourceName()..':playerLoaded', function()
@@ -266,9 +266,7 @@ local function setupMyScript()
             end
         })
     end)
-end
 
-setupMyScript()
 ```
 
 ### Advanced usage
